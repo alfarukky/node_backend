@@ -1,8 +1,5 @@
 const express = require('express');
-const {
-  getBooksController,
-  getSomethingController,
-} = require('../controllers/book.controller');
+const getController = require('../controllers/book.controller');
 const router = express.Router();
 
 router.use((req, res, next) => {
@@ -17,19 +14,15 @@ const lastLayerMiddleware = (req, res, next) => {
   next();
 };
 
-router.get('/', lastLayerMiddleware, (req, res) => {
-  getBooksController(req, res);
-});
+router.get('/', lastLayerMiddleware, getController.getBooks);
 
-router.get('/something', (req, res) => {
-  console.log(req.params);
-  console.log(req.query);
-  getSomethingController(req, res);
-});
+router.get('/something', getController.getSomething);
 
-router.get('/:bookId', (req, res) => {
-  console.log(req.params);
-  res.json({ name: `book${req.params.bookId}` });
-});
+router.get('/:bookId', getController.getBooksById);
+
+router.get(
+  '/:booksId/authors/:authorId',
+  getController.getBooksByIdAndAuthorId
+);
 
 module.exports = router;

@@ -40,4 +40,24 @@ const getSomething = (page, limit) => {
     meta: { page, limit },
   };
 };
-module.exports = { getBooks, getSomething };
+
+const getBooksById = (bookId) => {
+  return { id: bookId, name: 'Harry potter', pages: 760 };
+};
+const getBooksByIdAndAuthorId = (bookId, authorId) => {
+  return {
+    id: bookId,
+    name: 'Harry potter',
+    pages: 760,
+    author: {
+      id: authorId,
+      name: 'J.K, rowlings',
+    },
+  };
+};
+module.exports = {
+  getBooks,
+  getSomething,
+  getBooksById,
+  getBooksByIdAndAuthorId,
+};
